@@ -38,16 +38,14 @@ should do the following:
 You can test this function by logging out the returned value and checking its
 attributes.
 */
-function createColorBox(color, psize) {
+function createColorBox(color, size) {
     let newDiv = document.createElement('div');
-    newDiv.setAttribute('class', 'd-inline-block');
+    newDiv.classList.add('d-inline-block');
     newDiv.style.backgroundColor = color;
-    newDiv.style.width = psize;
-    newDiv.style.height = psize;
+    newDiv.style.width = `${size}px`;
+    newDiv.style.height = `${size}px`;
     return newDiv;
 }
-
-console.log(createColorBox('red', '100px'));
 
 /* Define a function `getElementWidth()` that takes in a DOM element (not a 
 string!). This function should return the width in pixels (a number) of that
@@ -60,7 +58,8 @@ element.
 */
 
 function getElementWidth(elem) {
-    return getBoundingClientRect(elem);
+    let obj = elem.getBoundingClientRect();
+    return obj.width;
 }
 
 
@@ -87,9 +86,9 @@ You should NOT include any test calls when running Jest tests!
 function renderPaletteRow(colorArray, parentElem) {
     let newDiv = document.createElement('div');
     for (let i = 0; i < colorArray.length; i++) {
-        createColorBox(colorArray[i], getElementWidth(parentElem/colorArray.length));
-        newDiv.appendChild();
+        newDiv.appendChild(createColorBox(colorArray[i], getElementWidth(parentElem)/colorArray.length));
     }
+    parentElem.appendChild(newDiv);
 }
 
 
@@ -104,9 +103,15 @@ Tip: note that `COLORS_9` is an object, not an array! You'll need to use a
 Call your `renderPaletteTable()` method to display all the color palettes!
 */
 function renderPaletteTable() {
+    // for (let i = 0; i < Object.keys(COLORS_9); i++) {
+    //     renderPaletteRow(COLORS_9.Object.keys(COLORS_9)[i], document.querySelector('main'));
+    // }
     
+    for (let paletteName in COLORS_9) { 
+        renderPaletteRow(COLORS_9[paletteName], document.querySelector('main'));
+    }
 }
-
+renderPaletteTable();
 
 //Finally, remove the paragraph in the header that explains how to complete the 
 //problem.
