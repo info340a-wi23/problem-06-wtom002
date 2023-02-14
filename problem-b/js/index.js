@@ -2,6 +2,8 @@
 
 //Create a variable `form` that refers to the `<form>` element in the DOM.
 
+let form = document.querySelector('form');
+
 /* Add an event listener to the `form` element that will listen for `'submit'` 
 type events (which occur when the form is submitted). In the callback function 
 for this event listener, do the following:
@@ -23,6 +25,16 @@ for this event listener, do the following:
      correctness. "was-checked" would be a better classname, but Bootstrap 
      doesn't use that.
 */
+function formCB() {
+    preventDefault();
+    if (form.checkValidity()) {
+        form.classList.add('d-none');
+        document.querySelector('p.alert').classList.remove('d-none');
+    }
+    
+}
+
+form.addEventListener('submit', formCB);
 
 
 
