@@ -1,6 +1,7 @@
 'use strict';
 
 import {getIncompleteTasks} from './Model.js';
+getIncompleteTasks();
 
 function renderSingleTask(task, cb) {
     let list = document.createElement('li');
@@ -17,8 +18,13 @@ function renderSingleTask(task, cb) {
 export function renderTaskList(cb) {
     let ul = document.createElement('ul');
     ul.classList.add('list-group', 'list-group-flush');
-    getIncompleteTasks();
-    
-
+    if (getIncompleteTasks()==null) {
+        let div = document.createElement('div');
+        div.innerText = "None!";
+        return div;
+    }
+    for (let task in getIncompleteTasks()) {
+        ul.appendChild(renderSingleTask(task, cb));
+    }
     return ul;
 }
