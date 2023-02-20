@@ -3,30 +3,31 @@
 import initialTasks from  './task-data.js';
 
 
-let currentTaskList = Array.from(initialTasks.map((task, index) => {
-    return { ...task, id: index + 1 };
-  }));
+let currentTaskList = initialTasks.map((task) => {
+    return { ...task, id: initialTasks.indexOf(task) + 1 };
+});
 
 export function getIncompleteTasks() {
-    
-    return currentTaskList.filter(task => task.status === 'incomplete');
+    return currentTaskList.filter(task => task.status === "incomplete");
 }
 
 export function addTask(desc) {
+    
     let newTask = {
+        id: currentTaskList[currentTaskList.length - 1].id + 1,
         description: desc,
         status: 'incomplete',
-        id: currentTaskList.length + 1,
     };
-    currentTaskList = { ...currentTaskList, newTask };
+    currentTaskList = [ ...currentTaskList, newTask ];
 }
 
 export function markComplete(id) {
-    currentTaskList = currentTaskList.map((task) => {
-        if (task.id === id) {
-            return {...task, status: "complete"};
-        } else {
-            return task
-        }
+    const updatedTaskList = currentTaskList.map((task) => {
+    const taskCopy = { ...task };
+    if (taskCopy.id === id) {
+        taskCopy.status = "complete";
+    }
+        return taskCopy;
     });
+    currentTaskList = updatedTaskList;
 }

@@ -13,8 +13,9 @@ export function renderTaskView() {
     tRoot.innerHTML = '';
     tRoot.appendChild(renderTaskList(markCompleteCallback));
 }
+
 let taskInput = document.querySelector('#task-input');
-document.getElementById('add-task-button').addEventListener('click', () => {
+document.querySelector('#add-task-button').addEventListener('click', () => {
     
     const taskName = taskInput.value.trim();
 
